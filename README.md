@@ -1,3 +1,9 @@
+## Database Schema Design
+
+![db-schema]
+
+[db-schema]: ./images/Screenshot%202025-02-21%20at%201.56.16 AM.png
+
 # Flask React Project
 
 This is the starter for the Flask React project.
