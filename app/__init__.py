@@ -7,6 +7,10 @@ from flask_login import LoginManager
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
+from .api.pin_routes import pin_routes  # Added pin routes
+from .api.board_routes import board_routes  # Added board routes
+from .api.comment_routes import comment_routes  # Added comment routes
+from .api.favorite_routes import favorite_routes  # Added favorite routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -26,8 +30,16 @@ def load_user(id):
 app.cli.add_command(seed_commands)
 
 app.config.from_object(Config)
+
+# Register blueprints for all routes
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
+app.register_blueprint(pin_routes, url_prefix='/api/pins')  # Register pin routes
+app.register_blueprint(board_routes, url_prefix='/api/boards')  # Register board routes
+app.register_blueprint(comment_routes, url_prefix='/api/comments')  # Register comment routes
+app.register_blueprint(favorite_routes, url_prefix='/api/favorites')  # Register favorite routes
+
+# Initialize database
 db.init_app(app)
 Migrate(app, db)
 
@@ -39,7 +51,6 @@ CORS(app)
 # we won't be using a buildpack when we deploy to Heroku.
 # Therefore, we need to make sure that in production any
 # request made over http is redirected to https.
-# Well.........
 @app.before_request
 def https_redirect():
     if os.environ.get('FLASK_ENV') == 'production':
@@ -55,8 +66,7 @@ def inject_csrf_token(response):
         'csrf_token',
         generate_csrf(),
         secure=True if os.environ.get('FLASK_ENV') == 'production' else False,
-        samesite='Strict' if os.environ.get(
-            'FLASK_ENV') == 'production' else None,
+        samesite='Strict' if os.environ.get('FLASK_ENV') == 'production' else None,
         httponly=True)
     return response
 
@@ -67,9 +77,9 @@ def api_help():
     Returns all API routes and their doc strings
     """
     acceptable_methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
-    route_list = { rule.rule: [[ method for method in rule.methods if method in acceptable_methods ],
-                    app.view_functions[rule.endpoint].__doc__ ]
-                    for rule in app.url_map.iter_rules() if rule.endpoint != 'static' }
+    route_list = {rule.rule: [[method for method in rule.methods if method in acceptable_methods],
+                              app.view_functions[rule.endpoint].__doc__]
+                  for rule in app.url_map.iter_rules() if rule.endpoint != 'static'}
     return route_list
 
 
