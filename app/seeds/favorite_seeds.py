@@ -1,5 +1,6 @@
+# app/seeds/favorite_seeds.py
 from app.models import db, Favorite, User, Pin
-from app import environment, SCHEMA  # Import environment from your app
+from app.config import Config  # Import Config to get environment and SCHEMA
 from sqlalchemy.sql import text
 
 # Adds demo favorites to the pins
@@ -27,8 +28,8 @@ def seed_favorites():
 
 # Undo function to delete the favorites
 def undo_favorites():
-    if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.favorites RESTART IDENTITY CASCADE;")
+    if Config.environment == "production":
+        db.session.execute(f"TRUNCATE table {Config.SCHEMA}.favorites RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM favorites"))
     db.session.commit()

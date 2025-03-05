@@ -4,13 +4,13 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
-from .models import db, User
+from .models import db, User, Pin, Board, Comment, Favorite  # Make sure all models are imported
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
-from .api.pin_routes import pin_routes  # Added pin routes
-from .api.board_routes import board_routes  # Added board routes
-from .api.comment_routes import comment_routes  # Added comment routes
-from .api.favorite_routes import favorite_routes  # Added favorite routes
+from .api.pin_routes import pin_routes
+from .api.board_routes import board_routes
+from .api.comment_routes import comment_routes
+from .api.favorite_routes import favorite_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -29,28 +29,26 @@ def load_user(id):
 # Tell flask about our seed commands
 app.cli.add_command(seed_commands)
 
+# Load configurations from the Config class
 app.config.from_object(Config)
 
 # Register blueprints for all routes
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
-app.register_blueprint(pin_routes, url_prefix='/api/pins')  # Register pin routes
-app.register_blueprint(board_routes, url_prefix='/api/boards')  # Register board routes
-app.register_blueprint(comment_routes, url_prefix='/api/comments')  # Register comment routes
-app.register_blueprint(favorite_routes, url_prefix='/api/favorites')  # Register favorite routes
+app.register_blueprint(pin_routes, url_prefix='/api/pins')
+app.register_blueprint(board_routes, url_prefix='/api/boards')
+app.register_blueprint(comment_routes, url_prefix='/api/comments')
+app.register_blueprint(favorite_routes, url_prefix='/api/favorites')
 
-# Initialize database
+# Initialize database and migrate
 db.init_app(app)
-Migrate(app, db)
+migrate = Migrate(app, db)
 
 # Application Security
 CORS(app)
 
 
-# Since we are deploying with Docker and Flask,
-# we won't be using a buildpack when we deploy to Heroku.
-# Therefore, we need to make sure that in production any
-# request made over http is redirected to https.
+# Force HTTPS in production
 @app.before_request
 def https_redirect():
     if os.environ.get('FLASK_ENV') == 'production':
