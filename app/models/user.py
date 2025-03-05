@@ -14,6 +14,12 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
 
+    # Relationships
+    pins = db.relationship('Pin', backref='user', lazy=True, cascade="all, delete-orphan")
+    boards = db.relationship('Board', backref='user', lazy=True, cascade="all, delete-orphan")
+    comments = db.relationship('Comment', backref='user', lazy=True, cascade="all, delete-orphan")
+    favorites = db.relationship('Favorite', backref='user', lazy=True, cascade="all, delete-orphan")
+
     @property
     def password(self):
         return self.hashed_password
