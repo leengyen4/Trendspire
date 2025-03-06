@@ -1,3 +1,4 @@
+// src/components/PinPage/PinItem.jsx
 import React, { useState } from 'react';
 
 const PinItem = ({ pin, onPinDeleted, onPinUpdated }) => {
@@ -17,7 +18,7 @@ const PinItem = ({ pin, onPinDeleted, onPinUpdated }) => {
 
     if (response.ok) {
       alert('Pin deleted successfully!');
-      onPinDeleted(pin.id);  // Remove pin from parent component's state
+      onPinDeleted(pin.id); // Remove pin from parent component's state
     } else {
       alert('Failed to delete the pin.');
     }
@@ -42,8 +43,8 @@ const PinItem = ({ pin, onPinDeleted, onPinUpdated }) => {
 
     if (response.ok) {
       const data = await response.json();
-      onPinUpdated(data);  // Update pin in parent component's state
-      setIsEditing(false);  // Close the editing form
+      onPinUpdated(data); // Update pin in parent component's state
+      setIsEditing(false); // Close the editing form
     } else {
       alert('Failed to update the pin.');
     }
