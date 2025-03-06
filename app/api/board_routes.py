@@ -5,13 +5,13 @@ from flask_login import login_required, current_user
 
 board_routes = Blueprint('board_routes', __name__)
 
-@board_routes.route('/', methods=['GET'])
+@board_routes.route('', methods=['GET'])
 @login_required
 def get_boards():
     boards = Board.query.filter_by(user_id=current_user.id).all()
     return jsonify([board.to_dict() for board in boards])
 
-@board_routes.route('/', methods=['POST'])
+@board_routes.route('', methods=['POST'])
 @login_required
 def create_board():
     data = request.get_json()
