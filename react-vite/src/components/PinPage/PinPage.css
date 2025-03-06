@@ -1,98 +1,80 @@
-/* Style for the overall PinPage layout */
-.pin-page-container {
-    margin: 20px;
-    padding: 20px;
-    background-color: #f4f4f4;
-    border-radius: 8px;
-  }
-  
-  /* Title of the page */
-  .pin-page-container h1 {
-    font-size: 28px;
-    margin-bottom: 15px;
-    color: #333;
-  }
-  
-  /* Style for the PinForm and PinList components */
-  .pin-form {
-    margin-bottom: 20px;
-  }
-  
-  .pin-list {
-    margin-top: 30px;
-  }
-  
-  /* Basic style for each Pin in the list */
-  .pin-item {
+/* PinPage.css */
+
+/* Container for all pins */
+.pin-list {
     display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    padding: 20px;
-    margin: 10px 0;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px;
   }
   
-  /* Pin title style */
-  .pin-item h2 {
-    font-size: 20px;
-    margin-bottom: 10px;
+  /* Individual pin item */
+  .pin-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: calc(33% - 32px); /* Adjusts to 3 items per row */
+    box-sizing: border-box;
+  }
+  
+  /* Pin title */
+  .pin-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
     color: #333;
   }
   
   /* Pin description */
   .pin-item p {
-    font-size: 14px;
+    font-size: 1rem;
     color: #666;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
   }
   
-  /* Style for the pin image */
-  .pin-item img {
+  /* Pin image styling */
+  .pin-image {
     width: 100%;
     height: auto;
-    margin-bottom: 15px;
     border-radius: 8px;
+    object-fit: cover;
+    margin-bottom: 16px;
   }
   
-  /* Style for buttons (delete, etc.) */
+  /* Button styling */
   .pin-item button {
-    background-color: #ff5722;
-    color: white;
-    padding: 8px 15px;
-    border-radius: 5px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    margin-top: 8px;
   }
   
   .pin-item button:hover {
-    background-color: #e64a19;
-  }
-  
-  /* Style for the new pin form */
-  .pin-form input,
-  .pin-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-  }
-  
-  .pin-form button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .pin-form button:hover {
     background-color: #0056b3;
+  }
+  
+  /* Edit and Delete buttons together */
+  .pin-item button + button {
+    margin-left: 8px;
+  }
+  
+  /* Responsiveness */
+  @media (max-width: 768px) {
+    .pin-item {
+      width: calc(50% - 32px); /* Adjust to 2 items per row */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .pin-item {
+      width: 100%; /* Full width on small screens */
+    }
   }
   

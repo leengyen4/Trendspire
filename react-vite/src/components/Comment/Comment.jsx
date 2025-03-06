@@ -14,7 +14,12 @@ const CommentComponent = () => {
   useEffect(() => {
     setLoading(true);
     fetch(`/api/comments/${pinId}`)
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error('Failed to fetch comments');
+      })
       .then(data => {
         setComments(data);
         setLoading(false); // Set loading to false once data is fetched

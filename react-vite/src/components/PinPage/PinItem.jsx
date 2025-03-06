@@ -73,7 +73,7 @@ const PinItem = ({ pin, onPinDeleted, onPinUpdated }) => {
       ) : (
         <>
           <h3>{pin.title}</h3>
-          <img src={pin.image_url} alt={pin.title} />
+          <img src={pin.image_url} alt={pin.title} className="pin-image" />
           <p>{pin.description}</p>
           <button onClick={handleDelete}>Delete</button>
           <button onClick={() => setIsEditing(true)}>Edit</button>
