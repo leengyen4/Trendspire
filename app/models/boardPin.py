@@ -10,7 +10,11 @@ class BoardPin(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     board_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("boards.id")), nullable=False)
     pin_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("pins.id")), nullable=False)
-    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+
+    # Relationships
+    board = db.relationship('Board', back_populates='board_pins')
+    pin = db.relationship('Pin', back_populates='board_pins')
 
     def to_dict(self):
         return {

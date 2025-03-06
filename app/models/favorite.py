@@ -12,6 +12,7 @@ class Favorite(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     pin_id = db.Column(db.Integer, db.ForeignKey('pins.id'), nullable=False)
+    overlaps = db.Column(db.Boolean, default=False)  # New column to track overlaps
 
     # Relationships
     user = db.relationship('User', back_populates='favorites')
@@ -21,5 +22,6 @@ class Favorite(db.Model):
         return {
             'id': self.id,
             'user_id': self.user_id,
-            'pin_id': self.pin_id
+            'pin_id': self.pin_id,
+            'overlaps': self.overlaps  # Include overlaps in the dictionary output
         }

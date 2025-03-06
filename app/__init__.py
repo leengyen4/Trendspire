@@ -11,6 +11,7 @@ from .api.pin_routes import pin_routes
 from .api.board_routes import board_routes
 from .api.comment_routes import comment_routes
 from .api.favorite_routes import favorite_routes
+from .api.boardpin_routes import boardpin_routes  # Import the new boardpin routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -20,11 +21,9 @@ app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
 login = LoginManager(app)
 login.login_view = 'auth.unauthorized'
 
-
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
-
 
 # Tell flask about our seed commands
 app.cli.add_command(seed_commands)
@@ -39,6 +38,7 @@ app.register_blueprint(pin_routes, url_prefix='/api/pins')
 app.register_blueprint(board_routes, url_prefix='/api/boards')
 app.register_blueprint(comment_routes, url_prefix='/api/comments')
 app.register_blueprint(favorite_routes, url_prefix='/api/favorites')
+app.register_blueprint(boardpin_routes, url_prefix='/api/boardpins')  # Register boardpin routes
 
 # Initialize database and migrate
 db.init_app(app)
@@ -46,7 +46,6 @@ migrate = Migrate(app, db)
 
 # Application Security
 CORS(app)
-
 
 # Force HTTPS in production
 @app.before_request
@@ -57,7 +56,6 @@ def https_redirect():
             code = 301
             return redirect(url, code=code)
 
-
 @app.after_request
 def inject_csrf_token(response):
     response.set_cookie(
@@ -67,7 +65,6 @@ def inject_csrf_token(response):
         samesite='Strict' if os.environ.get('FLASK_ENV') == 'production' else None,
         httponly=True)
     return response
-
 
 @app.route("/api/docs")
 def api_help():
@@ -80,7 +77,6 @@ def api_help():
                   for rule in app.url_map.iter_rules() if rule.endpoint != 'static'}
     return route_list
 
-
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def react_root(path):
@@ -92,7 +88,6 @@ def react_root(path):
     if path == 'favicon.ico':
         return app.send_from_directory('public', 'favicon.ico')
     return app.send_static_file('index.html')
-
 
 @app.errorhandler(404)
 def not_found(e):

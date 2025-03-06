@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: ba53e1762e1b
+Revision ID: b185c8ad70c6
 Revises: 
-Create Date: 2025-03-05 17:04:18.090010
+Create Date: 2025-03-05 17:45:23.905891
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'ba53e1762e1b'
+revision = 'b185c8ad70c6'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -54,7 +54,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('board_id', sa.Integer(), nullable=False),
     sa.Column('pin_id', sa.Integer(), nullable=False),
-    sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
+    sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['board_id'], ['boards.id'], ),
     sa.ForeignKeyConstraint(['pin_id'], ['pins.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -65,6 +65,7 @@ def upgrade():
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('pin_id', sa.Integer(), nullable=False),
+    sa.Column('overlaps', sa.Boolean(), nullable=True),
     sa.ForeignKeyConstraint(['pin_id'], ['pins.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -73,6 +74,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('pin_id', sa.Integer(), nullable=False),
+    sa.Column('overlaps', sa.Boolean(), nullable=True),
     sa.ForeignKeyConstraint(['pin_id'], ['pins.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')

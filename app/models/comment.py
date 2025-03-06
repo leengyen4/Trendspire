@@ -11,6 +11,7 @@ class Comment(db.Model):
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     pin_id = db.Column(db.Integer, db.ForeignKey('pins.id'), nullable=False)
+    overlaps = db.Column(db.Boolean, default=False)  # New column to track overlaps
 
     # Relationships
     user = db.relationship('User', back_populates='comments')
@@ -22,5 +23,6 @@ class Comment(db.Model):
             'content': self.content,
             'created_at': self.created_at,
             'user_id': self.user_id,
-            'pin_id': self.pin_id
+            'pin_id': self.pin_id,
+            'overlaps': self.overlaps  # Include overlaps in the dictionary output
         }

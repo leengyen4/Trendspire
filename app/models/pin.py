@@ -20,6 +20,9 @@ class Pin(db.Model):
     board = db.relationship('Board', back_populates='pins')  # This is the reverse relationship
     comments = db.relationship('Comment', backref='pin_reference', lazy=True, cascade="all, delete-orphan", overlaps='user')
     favorites = db.relationship('Favorite', backref='pin_favorite_reference', lazy=True, cascade="all, delete-orphan")
+    
+    # New Relationship for BoardPin
+    board_pins = db.relationship('BoardPin', back_populates='pin', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {
@@ -31,4 +34,3 @@ class Pin(db.Model):
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }
-
