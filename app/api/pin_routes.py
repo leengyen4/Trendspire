@@ -33,3 +33,18 @@ def delete_pin(id):
         db.session.commit()
         return jsonify({'message': 'Pin deleted successfully'}), 200
     return jsonify({'message': 'Pin not found or unauthorized'}), 404
+
+# New PUT route to update a pin
+@pin_routes.route('/<int:id>', methods=['PUT'])
+@login_required
+def update_pin(id):
+    pin = Pin.query.get(id)
+    if pin and pin.user_id == current_user.id:
+        data = request.get_json()
+        pin.title = data['title']
+        pin.description = data['description']
+        pin.image_url = data['image_url']
+
+        db.session.commit()
+        return jsonify(pin.to_dict()), 200  # Return the updated pin
+    return jsonify({'message': 'Pin not found or unauthorized'}), 404
