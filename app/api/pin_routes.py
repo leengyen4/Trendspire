@@ -5,12 +5,12 @@ from flask_login import login_required, current_user
 
 pin_routes = Blueprint('pin_routes', __name__)
 
-@pin_routes.route('', methods=['GET'])
+@pin_routes.route('/', methods=['GET'])
 def get_pins():
     pins = Pin.query.all()
     return jsonify([pin.to_dict() for pin in pins])
 
-@pin_routes.route('', methods=['POST'])
+@pin_routes.route('/', methods=['POST'])
 @login_required
 def create_pin():
     data = request.get_json()

@@ -5,7 +5,7 @@ from flask_login import login_required, current_user
 
 comment_routes = Blueprint('comment_routes', __name__)
 
-@comment_routes.route('', methods=['POST'])
+@comment_routes.route('/', methods=['POST'])
 @login_required
 def create_comment():
     data = request.get_json()
