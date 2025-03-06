@@ -1,51 +1,98 @@
-/* src/components/PinPage/PinPage.css */
-.pin-list {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-  }
-  
-  .pin-item {
-    border: 1px solid #ccc;
-    padding: 10px;
+/* Style for the overall PinPage layout */
+.pin-page-container {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f4f4f4;
     border-radius: 8px;
-    text-align: center;
   }
   
-  .pin-item img {
-    width: 100%;
-    height: auto;
-    max-width: 200px;
+  /* Title of the page */
+  .pin-page-container h1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  /* Style for the PinForm and PinList components */
+  .pin-form {
+    margin-bottom: 20px;
+  }
+  
+  .pin-list {
+    margin-top: 30px;
+  }
+  
+  /* Basic style for each Pin in the list */
+  .pin-item {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Pin title style */
+  .pin-item h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  /* Pin description */
+  .pin-item p {
+    font-size: 14px;
+    color: #666;
     margin-bottom: 10px;
   }
   
-  .pin-form input, .pin-form textarea {
+  /* Style for the pin image */
+  .pin-item img {
     width: 100%;
-    padding: 8px;
-    margin: 10px 0;
+    height: auto;
+    margin-bottom: 15px;
+    border-radius: 8px;
+  }
+  
+  /* Style for buttons (delete, etc.) */
+  .pin-item button {
+    background-color: #ff5722;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .pin-item button:hover {
+    background-color: #e64a19;
+  }
+  
+  /* Style for the new pin form */
+  .pin-form input,
+  .pin-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
   }
   
   .pin-form button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: #007bff;
     color: white;
     border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
     cursor: pointer;
+    font-size: 14px;
   }
   
   .pin-form button:hover {
-    background-color: #45a049;
-  }
-  
-  button {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: darkred;
+    background-color: #0056b3;
   }
   
