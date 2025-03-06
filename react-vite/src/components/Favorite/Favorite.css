@@ -1,0 +1,41 @@
+/* Favorite.css */
+.pin-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .pin-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+  }
+  
+  .pin-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+  }
+  
+  button {
+    background-color: #ff8c00;
+    border: none;
+    color: white;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  button.favorited {
+    background-color: #ff4747;
+  }
+  
+  button:hover {
+    background-color: #e76a00;
+  }
+  
