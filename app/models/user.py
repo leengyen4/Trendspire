@@ -2,7 +2,6 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
-
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
@@ -14,11 +13,11 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
 
-    # Relationships
-    pins = db.relationship('Pin', backref='user', lazy=True, cascade="all, delete-orphan")
-    boards = db.relationship('Board', backref='user', lazy=True, cascade="all, delete-orphan")
-    comments = db.relationship('Comment', backref='user', lazy=True, cascade="all, delete-orphan")
-    favorites = db.relationship('Favorite', backref='user', lazy=True, cascade="all, delete-orphan")
+    # Relationships with updated back_populates to avoid conflicts
+    pins = db.relationship('Pin', back_populates='user', lazy=True, cascade="all, delete-orphan")
+    boards = db.relationship('Board', back_populates='user', lazy=True, cascade="all, delete-orphan")
+    comments = db.relationship('Comment', back_populates='user', lazy=True, cascade="all, delete-orphan", overlaps='pin')
+    favorites = db.relationship('Favorite', back_populates='user', lazy=True, cascade="all, delete-orphan")
 
     @property
     def password(self):
