@@ -1,6 +1,5 @@
-// src/components/PinPage/PinList.jsx
 import React, { useState, useEffect } from 'react';
-import PinItem from './PinItem.jsx';  
+import PinItem from './PinItem';
 
 const PinList = () => {
   const [pins, setPins] = useState([]);
@@ -23,10 +22,27 @@ const PinList = () => {
     fetchPins();
   }, []);
 
+  const handlePinDeleted = (id) => {
+    setPins((prevPins) => prevPins.filter((pin) => pin.id !== id));
+  };
+
+  const handlePinUpdated = (updatedPin) => {
+    setPins((prevPins) =>
+      prevPins.map((pin) => (pin.id === updatedPin.id ? updatedPin : pin))
+    );
+  };
+
   return (
     <div className="pin-list">
       {pins.length > 0 ? (
-        pins.map(pin => <PinItem key={pin.id} pin={pin} />)
+        pins.map((pin) => (
+          <PinItem
+            key={pin.id}
+            pin={pin}
+            onPinDeleted={handlePinDeleted}
+            onPinUpdated={handlePinUpdated}
+          />
+        ))
       ) : (
         <p>No pins available.</p>
       )}

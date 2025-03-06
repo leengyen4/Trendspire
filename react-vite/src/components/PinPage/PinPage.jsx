@@ -24,11 +24,25 @@ const PinPage = () => {
     setPins((prevPins) => [newPin, ...prevPins]);  // Add new pin to the list
   };
 
+  const handlePinDeleted = (id) => {
+    setPins((prevPins) => prevPins.filter((pin) => pin.id !== id)); // Remove deleted pin from state
+  };
+
+  const handlePinUpdated = (updatedPin) => {
+    setPins((prevPins) =>
+      prevPins.map((pin) => (pin.id === updatedPin.id ? updatedPin : pin))
+    ); // Update the pin in state
+  };
+
   return (
     <div>
       <h1>All Pins</h1>
       <PinForm onPinCreated={handlePinCreated} />
-      <PinList pins={pins} />
+      <PinList
+        pins={pins}
+        onPinDeleted={handlePinDeleted} // Pass delete handler
+        onPinUpdated={handlePinUpdated} // Pass update handler
+      />
 
       {/* Check if pinId exists before rendering the comments */}
       {pinId && <CommentComponent pinId={pinId} />}  {/* Pass pinId to CommentComponent */}
