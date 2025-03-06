@@ -6,8 +6,9 @@ import './BoardPage.css';
 const BoardPage = () => {
   const [boards, setBoards] = useState([]);
   const [editingBoardId, setEditingBoardId] = useState(null);
+  const [availablePins, setAvailablePins] = useState([]); // New state to store available pins
 
-  // Fetch boards when component mounts
+  // Fetch boards and pins when component mounts
   useEffect(() => {
     const fetchBoards = async () => {
       try {
@@ -30,7 +31,29 @@ const BoardPage = () => {
       }
     };
 
+    const fetchPins = async () => {
+      try {
+        const response = await fetch('/api/pins', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setAvailablePins(data);
+        } else {
+          console.error('Failed to fetch pins');
+        }
+      } catch (error) {
+        console.error('Error fetching pins:', error);
+      }
+    };
+
     fetchBoards();
+    fetchPins();
   }, []);
 
   // Handle new board creation
@@ -78,6 +101,29 @@ const BoardPage = () => {
     setEditingBoardId(null);
   };
 
+  // Add pin to board
+  const handleAddPinToBoard = async (boardId, pinId) => {
+    try {
+      const response = await fetch(`/api/boardpins/${boardId}/pins/${pinId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        // You can update the board's pin list here
+        console.log('Pin added:', data);
+      } else {
+        console.error('Failed to add pin');
+      }
+    } catch (error) {
+      console.error('Error adding pin:', error);
+    }
+  };
+
   return (
     <div>
       <h1>Your Boards</h1>
@@ -89,6 +135,25 @@ const BoardPage = () => {
               <p>{board.description}</p>
               <button onClick={() => handleEditBoard(board.id)}>Edit</button>
               <button onClick={() => handleDeleteBoard(board.id)}>Delete</button>
+              <div>
+                <h3>Add a Pin</h3>
+                {availablePins.length > 0 ? (
+                  <select
+                    onChange={(e) =>
+                      handleAddPinToBoard(board.id, e.target.value)
+                    }
+                  >
+                    <option value="">Select a pin</option>
+                    {availablePins.map((pin) => (
+                      <option key={pin.id} value={pin.id}>
+                        {pin.title}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <p>No available pins.</p>
+                )}
+              </div>
             </div>
           ))
         ) : (
