@@ -4,6 +4,7 @@ from .board_seeds import seed_boards, undo_boards
 from .pin_seeds import seed_pins, undo_pins
 from .comment_seeds import seed_comments, undo_comments
 from .favorite_seeds import seed_favorites, undo_favorites
+from .boardpin_seeds import seed_board_pins, undo_board_pins
 
 from app.models.db import db, environment, SCHEMA
 
@@ -16,21 +17,20 @@ seed_commands = AppGroup('seed')
 @seed_commands.command('all')
 def seed():
     if environment == 'production':
-        # Before seeding in production, you want to run the seed undo 
-        # command, which will truncate all tables prefixed with 
-        # the schema name (see comment in users.py undo_users function).
-        # Make sure to add all your other model's undo functions below
+        # Before seeding in production, truncate tables
         undo_users()
         undo_boards()
         undo_pins()
         undo_comments()
         undo_favorites()
+        undo_board_pins()  # Added BoardPin undo
 
     seed_users()
     seed_boards()
     seed_pins()
     seed_comments()
     seed_favorites()
+    seed_board_pins()  # Added BoardPin seeding
 
 
 # Creates the `flask seed undo` command
@@ -41,3 +41,4 @@ def undo():
     undo_pins()
     undo_comments()
     undo_favorites()
+    undo_board_pins()  # Added BoardPin undo
