@@ -3,9 +3,11 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 class Comment(db.Model):
     __tablename__ = 'comments'
 
-    # Apply schema handling based on environment (production or development)
-        if environment == "production":
-        __table_args__ = {'schema': SCHEMA}
+       
+    # Apply schema handling correctly based on environment
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}  # Apply schema in production environment
+
 
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(500), nullable=False)

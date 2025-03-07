@@ -3,11 +3,11 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 class Favorite(db.Model):
     __tablename__ = 'favorites'
 
-    # Apply schema handling based on the environment (production or development)
+    
+    # Apply schema handling correctly based on environment
     if environment == "production":
-       
-               if environment == "production":
-        __table_args__ = {'schema': SCHEMA}
+        __table_args__ = {'schema': SCHEMA}  # Apply schema in production environment
+
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
