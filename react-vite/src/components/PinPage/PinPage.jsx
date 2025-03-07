@@ -7,12 +7,11 @@ import CommentComponent from '../Comment/CommentComponent'; // Import the Commen
 import './PinItem.css';
 
 const PinPage = () => {
-  const [pins, setPins] = useState([]);
-  const { pinId } = useParams(); // Get pinId from the URL (optional, for individual pin details)
+  const [pins, setPins] = useState([]); // Store all pins
 
-  // Fetch pins data when the component mounts
+  // Fetch all pins data when the component mounts
   useEffect(() => {
-    fetch('/api/pins') // Assuming '/api/pins' is the correct endpoint
+    fetch('/api/pins') // Fetch all pins from the server
       .then((res) => res.json())
       .then((data) => {
         setPins(data); // Set the fetched pins data
@@ -43,17 +42,23 @@ const PinPage = () => {
     <div>
       <h1>All Pins</h1>
       <PinForm onPinCreated={handlePinCreated} />
+      
       <PinList
-        pins={pins} // Pass the pins to PinList
+        pins={pins} // Pass the list of pins to PinList
         onPinDeleted={handlePinDeleted} // Pass delete handler
         onPinUpdated={handlePinUpdated} // Pass update handler
       />
 
-      {/* Check if pinId exists before rendering the comments */}
-      {pinId && <CommentComponent pinId={pinId} />} {/* Pass pinId to CommentComponent */}
+      {/* Render CommentComponent below each pin */}
+      {pins.map((pin) => (
+        <div key={pin.id}>
+          <h3>{pin.title}</h3>
+          {/* Pass pinId to the CommentComponent for each pin */}
+          <CommentComponent pinId={pin.id} />
+        </div>
+      ))}
     </div>
   );
 };
 
 export default PinPage;
-

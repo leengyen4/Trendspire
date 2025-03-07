@@ -2,7 +2,7 @@
 import React from 'react';
 import PinItem from './PinItem';
 
-const PinList = ({ pins, onPinDeleted, onPinUpdated }) => {
+const PinList = ({ pins = [], onPinDeleted, onPinUpdated }) => {
   return (
     <div className="pin-list">
       {pins.length > 0 ? (
