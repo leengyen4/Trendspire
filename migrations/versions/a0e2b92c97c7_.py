@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 14fda58b02eb
+Revision ID: a0e2b92c97c7
 Revises: 
-Create Date: 2025-03-07 08:13:14.618665
+Create Date: 2025-03-07 11:39:18.493239
 
 """
 from alembic import op
@@ -13,7 +13,7 @@ environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-revision = '14fda58b02eb'
+revision = 'a0e2b92c97c7'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -31,7 +31,7 @@ def upgrade():
     sa.UniqueConstraint('username')
     )
 
-    if environment == "production":
+     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
 
     op.create_table('boards',
@@ -45,7 +45,7 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
 
-    if environment == "production":
+     if environment == "production":
         op.execute(f"ALTER TABLE boards SET SCHEMA {SCHEMA};")
 
     op.create_table('pins',
@@ -62,7 +62,7 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
 
-    if environment == "production":
+     if environment == "production":
         op.execute(f"ALTER TABLE pins SET SCHEMA {SCHEMA};")
 
     op.create_table('boardPins',
@@ -75,7 +75,7 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
 
-    if environment == "production":
+     if environment == "production":
         op.execute(f"ALTER TABLE boardPins SET SCHEMA {SCHEMA};")
 
     op.create_table('comments',
@@ -90,7 +90,7 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
 
-    if environment == "production":
+     if environment == "production":
         op.execute(f"ALTER TABLE comments SET SCHEMA {SCHEMA};")
 
     op.create_table('favorites',
@@ -103,8 +103,9 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
 
-    if environment == "production":
+     if environment == "production":
         op.execute(f"ALTER TABLE favorites SET SCHEMA {SCHEMA};")
+
     # ### end Alembic commands ###
 
 
@@ -117,3 +118,5 @@ def downgrade():
     op.drop_table('boards')
     op.drop_table('users')
     # ### end Alembic commands ###
+
+
