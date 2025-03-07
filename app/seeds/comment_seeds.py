@@ -1,4 +1,4 @@
-from app.models import db, Comment, Pin, User, environment  # Added environment import
+from app.models import db, Comment, Pin, User, environment, SCHEMA  # Added SCHEMA import
 from sqlalchemy.sql import text  # Ensure text is imported
 from datetime import datetime
 

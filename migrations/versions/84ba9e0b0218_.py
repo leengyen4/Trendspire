@@ -118,3 +118,4 @@ def downgrade():
     op.drop_table('boards')
     op.drop_table('users')
     # ### end Alembic commands ###
+
