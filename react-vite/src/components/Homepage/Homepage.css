@@ -1,45 +1,44 @@
 /* src/components/Homepage/Homepage.css */
 .homepage-container {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    padding: 20px;
-  }
-  
-  h1 {
-    color: #4CAF50;
-    font-size: 3rem;
-    margin-bottom: 20px;
-  }
-  
-  .homepage-content {
-    margin-top: 40px;
-    font-size: 1.2rem;
-    color: #555;
-  }
-  
-  .homepage-footer {
-    margin-top: 40px;
-    padding: 10px;
-    background-color: #333;
-    color: white;
-  }
-  
-  button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  
-  .pin-container {
-    margin-top: 50px;
-  }
-  
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  color: black;  /* Change the color to black */
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.homepage-content {
+  margin-top: 40px;
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.homepage-footer {
+  margin-top: 40px;
+  padding: 10px;
+  background-color: #333;
+  color: white;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.pin-container {
+  margin-top: 50px;
+}

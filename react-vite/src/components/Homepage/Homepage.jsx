@@ -6,7 +6,7 @@ import './Homepage.css'; // Optional: Add your custom styling for the homepage
 const Homepage = () => {
   return (
     <div>
-      <h1>Welcome to the Homepage!</h1>
+      <h1>Trendspire</h1>
       <PinPage /> {/* Render the PinPage component to handle pins */}
     </div>
   );
