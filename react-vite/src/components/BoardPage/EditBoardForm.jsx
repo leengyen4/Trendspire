@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
 const EditBoardForm = ({ boardId, onUpdate, onCancel }) => {
-  const [name, setName] = useState('');
+  const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
   useEffect(() => {
     const fetchBoard = async () => {
       const response = await fetch(`/api/boards/${boardId}`);
       const data = await response.json();
-      setName(data.name);
+      setTitle(data.title);
       setDescription(data.description);
     };
 
@@ -18,15 +18,12 @@ const EditBoardForm = ({ boardId, onUpdate, onCancel }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const updatedBoard = { name, description };
+    const updatedBoard = { title, description };
 
     try {
       const response = await fetch(`/api/boards/${boardId}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedBoard),
       });
 
@@ -45,9 +42,9 @@ const EditBoardForm = ({ boardId, onUpdate, onCancel }) => {
     <form onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Board Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
+        placeholder="Board Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
         required
       />
       <textarea

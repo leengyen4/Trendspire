@@ -3,5 +3,5 @@ from wtforms import StringField, TextAreaField
 from wtforms.validators import DataRequired
 
 class BoardCreationForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired()])
+    title = StringField('Title', validators=[DataRequired()])
     description = TextAreaField('Description')

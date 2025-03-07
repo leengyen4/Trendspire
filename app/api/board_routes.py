@@ -1,4 +1,3 @@
-# api/board_routes.py
 from flask import Blueprint, request, jsonify
 from app.models import db, Board
 from flask_login import login_required, current_user
@@ -17,12 +16,26 @@ def create_board():
     data = request.get_json()
     new_board = Board(
         user_id=current_user.id,
-        name=data['name'],
-        description=data['description']
+        title=data['title'],  # Changed from name to title
+        description=data.get('description', '')
     )
     db.session.add(new_board)
     db.session.commit()
     return jsonify(new_board.to_dict()), 201
+
+@board_routes.route('/<int:id>', methods=['PUT'])
+@login_required
+def update_board(id):
+    data = request.get_json()
+    board = Board.query.get(id)
+
+    if board and board.user_id == current_user.id:
+        board.title = data.get('title', board.title)  # Changed from name to title
+        board.description = data.get('description', board.description)
+        db.session.commit()
+        return jsonify(board.to_dict()), 200
+
+    return jsonify({'message': 'Board not found or unauthorized'}), 404
 
 @board_routes.route('/<int:id>', methods=['DELETE'])
 @login_required

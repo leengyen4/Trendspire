@@ -1,28 +1,25 @@
 import React, { useState } from 'react';
 
 const CreateBoardForm = ({ onCreate }) => {
-  const [name, setName] = useState('');
+  const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const boardData = { name, description };
+    const boardData = { title, description };
 
     try {
       const response = await fetch('/api/boards', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(boardData),
       });
 
       if (response.ok) {
         const newBoard = await response.json();
-        onCreate(newBoard); // Call the onCreate function passed as prop
-        setName('');
+        onCreate(newBoard);
+        setTitle('');
         setDescription('');
       } else {
         console.error('Failed to create board');
@@ -36,9 +33,9 @@ const CreateBoardForm = ({ onCreate }) => {
     <form onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Board Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
+        placeholder="Board Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
         required
       />
       <textarea
