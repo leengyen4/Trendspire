@@ -9,11 +9,11 @@ const CommentComponent = ({ pinId }) => {
   const [loading, setLoading] = useState(true);  // Loading state to track fetch process
   const [error, setError] = useState(null);  // State for errors
 
-  // Fetch comments on component mount or when pinId changes
   useEffect(() => {
     setLoading(true);
     setError(null);
 
+    // Fetch comments for the specific pin
     fetch(`/api/comments/${pinId}`)
       .then((res) => res.json())
       .then((data) => {
@@ -27,17 +27,14 @@ const CommentComponent = ({ pinId }) => {
       });
   }, [pinId]);
 
-  // Handle new comment creation
   const handleCommentCreated = (newComment) => {
     setComments((prevComments) => [newComment, ...prevComments]);
   };
 
-  // Handle comment deletion
   const handleCommentDeleted = (id) => {
     setComments((prevComments) => prevComments.filter((comment) => comment.id !== id));
   };
 
-  // Handle comment update
   const handleCommentUpdated = (updatedComment) => {
     setComments((prevComments) =>
       prevComments.map((comment) => (comment.id === updatedComment.id ? updatedComment : comment))
