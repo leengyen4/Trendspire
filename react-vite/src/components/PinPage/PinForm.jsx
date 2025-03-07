@@ -31,7 +31,7 @@ const PinForm = ({ onPinCreated }) => {
       } else {
         const errorData = await response.json();
         console.error('Failed to create pin:', errorData);
-        alert(`Failed to create pin: ${errorData.message || 'Unknown error'}`);
+        alert(`Failed to create pin: ${errorData.message || 'Please try again later'}`);
       }
     } catch (error) {
       console.error('Error creating pin:', error);
