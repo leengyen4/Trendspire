@@ -28,8 +28,8 @@ def seed_favorites():
 
 # Undo function to delete the favorites
 def undo_favorites():
-    if Config.environment == "production":
-        db.session.execute(f"TRUNCATE table {Config.SCHEMA}.favorites RESTART IDENTITY CASCADE;")
+    if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.favorites RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM favorites"))
     db.session.commit()

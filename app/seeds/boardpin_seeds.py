@@ -16,5 +16,4 @@ def undo_board_pins():
         db.session.execute(f"TRUNCATE table {SCHEMA}.board_pins RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM board_pins"))
-    
     db.session.commit()
