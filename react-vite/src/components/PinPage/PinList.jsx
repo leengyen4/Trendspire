@@ -1,8 +1,7 @@
-// src/components/PinPage/PinList.jsx
 import React from 'react';
 import PinItem from './PinItem';
 
-const PinList = ({ pins = [], onPinDeleted, onPinUpdated }) => {
+const PinList = ({ pins = [], onPinDeleted, onPinUpdated, favorites, onFavoriteToggle }) => {
   return (
     <div className="pin-list">
       {pins.length > 0 ? (
@@ -12,6 +11,8 @@ const PinList = ({ pins = [], onPinDeleted, onPinUpdated }) => {
             pin={pin}
             onPinDeleted={onPinDeleted}
             onPinUpdated={onPinUpdated}
+            favorites={favorites} // Pass favorites
+            onFavoriteToggle={onFavoriteToggle} // Pass favorite toggle function
           />
         ))
       ) : (

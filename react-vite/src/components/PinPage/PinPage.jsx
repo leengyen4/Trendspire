@@ -5,46 +5,110 @@ import './PinItem.css';  // Make sure the styles for PinItem are included
 
 const PinPage = () => {
   const [pins, setPins] = useState([]);  // Store all pins
+  const [favorites, setFavorites] = useState([]); // Store user's favorite pins
 
-  // Fetch all pins data when the component mounts
+  // Fetch all pins and favorite pins data when the component mounts
   useEffect(() => {
-    fetch('/api/pins') // Fetch all pins from the server
-      .then((res) => res.json())
-      .then((data) => {
-        setPins(data); // Set the fetched pins data
-      })
-      .catch((err) => {
+    // Fetch all pins data
+    const fetchPins = async () => {
+      try {
+        const response = await fetch('/api/pins');
+        if (response.ok) {
+          const data = await response.json();
+          setPins(data); // Set the fetched pins data
+        } else {
+          console.error('Error fetching pins');
+        }
+      } catch (err) {
         console.error('Error fetching pins:', err);
-      });
-  }, []); // Empty array to only run once on mount
+      }
+    };
 
-  // Handle pin creation
-  const handlePinCreated = (newPin) => {
-    setPins((prevPins) => [newPin, ...prevPins]); // Add new pin to the list
-  };
+    // Fetch user's favorite pins
+    const fetchFavorites = async () => {
+      try {
+        const response = await fetch('/api/favorites', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setFavorites(data); // Set user's favorites
+        } else {
+          console.error('Error fetching favorites');
+        }
+      } catch (err) {
+        console.error('Error fetching favorites:', err);
+      }
+    };
 
-  // Handle pin deletion
-  const handlePinDeleted = (id) => {
-    setPins((prevPins) => prevPins.filter((pin) => pin.id !== id)); // Remove deleted pin from state
-  };
+    fetchPins();
+    fetchFavorites();
+  }, []);
 
-  // Handle pin update
-  const handlePinUpdated = (updatedPin) => {
-    setPins((prevPins) =>
-      prevPins.map((pin) => (pin.id === updatedPin.id ? updatedPin : pin))
-    ); // Update the pin in state
+  const handleFavoriteToggle = async (pinId) => {
+    // Check if the pin is already favorited by the user
+    const existingFavorite = favorites.find(fav => fav.pin_id === pinId);
+
+    if (existingFavorite) {
+      // Unfavorite the pin
+      try {
+        const response = await fetch('/api/favorites', {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ pin_id: pinId }),
+        });
+
+        if (response.ok) {
+          setFavorites(favorites.filter(fav => fav.pin_id !== pinId)); // Remove from UI
+        } else {
+          console.error('Failed to unfavorite the pin');
+        }
+      } catch (error) {
+        console.error('Error unfavoriting pin:', error);
+      }
+    } else {
+      // Favorite the pin
+      try {
+        const response = await fetch('/api/favorites', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ pin_id: pinId }),
+        });
+
+        if (response.ok) {
+          const newFavorite = await response.json();
+          setFavorites([...favorites, newFavorite]); // Add to UI
+        } else {
+          console.error('Failed to favorite the pin');
+        }
+      } catch (error) {
+        console.error('Error favoriting pin:', error);
+      }
+    }
   };
 
   return (
     <div>
       <h1>All Pins</h1>
-      <PinForm onPinCreated={handlePinCreated} /> {/* Pin creation form */}
+      <PinForm onPinCreated={(newPin) => setPins([newPin, ...pins])} /> {/* Pin creation form */}
 
       {/* Use PinList to display all pins */}
       <PinList
         pins={pins}  // Pass the list of pins to PinList
-        onPinDeleted={handlePinDeleted}  // Pass delete handler to PinList
-        onPinUpdated={handlePinUpdated}  // Pass update handler to PinList
+        onPinDeleted={(id) => setPins(pins.filter(pin => pin.id !== id))}
+        onPinUpdated={(updatedPin) => setPins(pins.map(pin => pin.id === updatedPin.id ? updatedPin : pin))}
+        onFavoriteToggle={handleFavoriteToggle}  // Pass the favorite/unfavorite handler
+        favorites={favorites} // Pass the list of favorites
       />
     </div>
   );

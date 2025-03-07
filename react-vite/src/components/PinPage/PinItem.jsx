@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CommentComponent from '../Comment/CommentComponent'; // Import CommentComponent
 
-const PinItem = ({ pin, onPinDeleted, onPinUpdated }) => {
+const PinItem = ({ pin, onPinDeleted, onPinUpdated, onFavoriteToggle, favorites }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [updatedTitle, setUpdatedTitle] = useState(pin.title);
   const [updatedDescription, setUpdatedDescription] = useState(pin.description);
@@ -50,8 +50,19 @@ const PinItem = ({ pin, onPinDeleted, onPinUpdated }) => {
     }
   };
 
+  // Check if the pin is favorited
+  const isFavorited = favorites.some(fav => fav.pin_id === pin.id);
+
   return (
     <div className="pin-item">
+      {/* Favorite/Unfavorite button */}
+      <button 
+        onClick={() => onFavoriteToggle(pin.id)}
+        className={`favorite-btn ${isFavorited ? 'favorited' : ''}`}
+      >
+        {isFavorited ? 'Unfavorite' : 'Favorite'}
+      </button>
+
       {isEditing ? (
         <div>
           <input
@@ -76,12 +87,15 @@ const PinItem = ({ pin, onPinDeleted, onPinUpdated }) => {
           <h3>{pin.title}</h3>
           <img src={pin.image_url} alt={pin.title} className="pin-image" />
           <p>{pin.description}</p>
-          {/* Update and Delete buttons for pins */}
-          <button onClick={handleDelete}>Delete</button>
-          <button onClick={() => setIsEditing(true)}>Edit</button>
+
+          {/* Edit button */}
+          <button onClick={() => setIsEditing(true)} className="edit-btn">Edit</button>
+
+          {/* Delete button */}
+          <button onClick={handleDelete} className="delete-btn">Delete</button>
         </>
       )}
-      
+
       {/* Render CommentComponent with pinId */}
       <CommentComponent pinId={pin.id} />
     </div>

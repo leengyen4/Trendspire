@@ -1,4 +1,72 @@
-/* Individual pin item */
+/* Pin Item Button Styles */
+.favorite-btn {
+  background-color: gray; /* Default for "Favorite" button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  margin-top: 8px;
+  font-size: 1rem;
+}
+
+/* When the pin is favorited */
+.favorite-btn.favorited {
+  background-color: #ffcccb; /* Light red when the pin is favorited */
+}
+
+/* When the pin is unfavorited */
+.favorite-btn.unfavorited {
+  background-color: #ffcccb; /* Light red when the pin is unfavorited */
+  color: white; /* Text color */
+}
+
+/* Hover effects for buttons */
+.favorite-btn:hover {
+  background-color: #ffcc00;
+}
+
+.favorite-btn.favorited:hover {
+  background-color: #f0a0a0; /* Hover effect when favorited (lighter red) */
+}
+
+.favorite-btn.unfavorited:hover {
+  background-color: #f0a0a0; /* Hover effect when unfavorited (lighter red) */
+}
+
+/* Edit Button */
+.edit-btn {
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-left: 8px;
+}
+
+.edit-btn:hover {
+  background-color: #003366;
+}
+
+/* Delete Button */
+.delete-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-left: 8px;
+}
+
+.delete-btn:hover {
+  background-color: #b30000;
+}
+
+/* Pin Item Styles */
 .pin-item {
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -9,8 +77,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  max-width: 300px;  /* Set max width to prevent images from being too large */
-  height: auto; /* Ensure the pin item height adjusts */
+  max-width: 300px;
+  height: auto;
   box-sizing: border-box;
 }
 
@@ -37,56 +105,4 @@
   border-radius: 8px;
   object-fit: cover;
   margin-bottom: 16px;
-}
-
-/* Button styling */
-.pin-item button {
-  padding: 8px 16px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-  margin-top: 8px;
-}
-
-.pin-item button:hover {
-  background-color: #0056b3;
-}
-
-/* Edit and Delete buttons together */
-.pin-item button + button {
-  margin-left: 8px;
-}
-
-/* Styling for the delete and update buttons */
-.pin-item button.delete-btn {
-  background-color: #dc3545; /* Red background for delete */
-}
-
-.pin-item button.delete-btn:hover {
-  background-color: #c82333; /* Darker red for hover */
-}
-
-.pin-item button.edit-btn {
-  background-color: #ffc107; /* Yellow background for edit */
-}
-
-.pin-item button.edit-btn:hover {
-  background-color: #e0a800; /* Darker yellow for hover */
-}
-
-/* Responsiveness */
-@media (max-width: 768px) {
-  .pin-list {
-    grid-template-columns: repeat(2, 1fr); /* 2 items per row on tablets */
-  }
-}
-
-@media (max-width: 480px) {
-  .pin-list {
-    grid-template-columns: 1fr; /* 1 item per row on mobile */
-  }
 }
