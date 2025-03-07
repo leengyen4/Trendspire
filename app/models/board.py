@@ -3,10 +3,8 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 class Board(db.Model):
     __tablename__ = 'boards'
 
-    # Apply schema handling based on the environment (production or development)
-    __table_args__ = (
-        {'schema': SCHEMA} if environment == "production" else {},
-    )
+       if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)

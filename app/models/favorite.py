@@ -5,10 +5,9 @@ class Favorite(db.Model):
 
     # Apply schema handling based on the environment (production or development)
     if environment == "production":
-        __table_args__ = (
-            {'schema': SCHEMA},  # Apply the schema only in production
-            db.UniqueConstraint('user_id', 'pin_id', name='uix_user_pin')  # Unique constraint
-        )
+       
+               if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)

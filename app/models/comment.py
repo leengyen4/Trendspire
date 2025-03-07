@@ -4,9 +4,8 @@ class Comment(db.Model):
     __tablename__ = 'comments'
 
     # Apply schema handling based on environment (production or development)
-    __table_args__ = (
-        {'schema': SCHEMA} if environment == "production" else {},
-    )
+        if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(500), nullable=False)
