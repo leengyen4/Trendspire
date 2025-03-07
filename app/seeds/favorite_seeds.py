@@ -1,6 +1,5 @@
-# app/seeds/favorite_seeds.py
 from app.models import db, Favorite, User, Pin
-from app.config import Config  # Import Config to get environment and SCHEMA
+from app.models.db import environment, SCHEMA  # Import environment and SCHEMA correctly
 from sqlalchemy.sql import text
 
 # Adds demo favorites to the pins
