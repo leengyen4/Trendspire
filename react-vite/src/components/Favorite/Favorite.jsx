@@ -4,7 +4,7 @@ import './Favorite.css';
 const Favorite = () => {
   const [favorites, setFavorites] = useState([]);
   const [allPins, setAllPins] = useState([]);
-  
+
   useEffect(() => {
     // Fetch user's favorite pins
     const fetchFavorites = async () => {
@@ -102,22 +102,31 @@ const Favorite = () => {
     }
   };
 
+  // Filter pins to show only the favorited ones
+  const favoritedPins = allPins.filter(pin => 
+    favorites.some(fav => fav.pin_id === pin.id)
+  );
+
   return (
     <div>
       <h1>Your Favorite Pins</h1>
       <div className="pin-list">
-        {allPins.map((pin) => (
-          <div key={pin.id} className="pin-card">
-            <img src={pin.image_url} alt={pin.name} />
-            <h3>{pin.name}</h3>
-            <button
-              onClick={() => handleFavoriteToggle(pin.id)}
-              className={favorites.some(fav => fav.pin_id === pin.id) ? 'favorited' : ''}
-            >
-              {favorites.some(fav => fav.pin_id === pin.id) ? 'Unfavorite' : 'Favorite'}
-            </button>
-          </div>
-        ))}
+        {favoritedPins.length > 0 ? (
+          favoritedPins.map((pin) => (
+            <div key={pin.id} className="pin-card">
+              <img src={pin.image_url} alt={pin.title} />
+              <h3>{pin.title}</h3>
+              <button
+                onClick={() => handleFavoriteToggle(pin.id)}
+                className="favorited"
+              >
+                Unfavorite
+              </button>
+            </div>
+          ))
+        ) : (
+          <p>No favorite pins yet!</p>
+        )}
       </div>
     </div>
   );

@@ -1,41 +1,48 @@
 /* Favorite.css */
 .pin-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  .pin-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    width: 200px;
-    text-align: center;
-  }
-  
-  .pin-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-  }
-  
-  button {
-    background-color: #ff8c00;
-    border: none;
-    color: white;
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  button.favorited {
-    background-color: #ff4747;
-  }
-  
-  button:hover {
-    background-color: #e76a00;
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+
+.pin-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  width: 200px;
+  text-align: center;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pin-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #ff8c00;
+  border: none;
+  color: white;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+button.favorited {
+  background-color: #ff4747;  /* Red color when unfavorited */
+}
+
+button:hover {
+  background-color: #e76a00;
+}
+
+/* Styling for when hovering over the unfavorite button */
+button.favorited:hover {
+  background-color: #e64b47;  /* Darker red when hovered */
+}
