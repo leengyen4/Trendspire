@@ -18,7 +18,7 @@ class Comment(db.Model):
 
     # Relationships
     user = db.relationship('User', back_populates='comments')
-    pin = db.relationship('Pin', back_populates='comments')
+    pin = db.relationship('Pin', back_populates='comments', overlaps='pin_reference')
 
     def to_dict(self):
         return {

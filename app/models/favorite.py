@@ -16,7 +16,7 @@ class Favorite(db.Model):
 
     # Relationships
     user = db.relationship('User', back_populates='favorites')
-    pin = db.relationship('Pin', back_populates='favorites')
+    pin = db.relationship('Pin', back_populates='favorites', overlaps='pin_favorite_reference')
 
     def to_dict(self):
         return {
