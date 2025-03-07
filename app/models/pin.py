@@ -3,8 +3,10 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 class Pin(db.Model):
     __tablename__ = 'pins'
 
-    if environment == "production":
-        __table_args__ = {'schema': SCHEMA}
+    # Add schema handling based on the environment (production or development)
+    __table_args__ = (
+        {'schema': SCHEMA} if environment == "production" else {},
+    )
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
@@ -17,11 +19,11 @@ class Pin(db.Model):
 
     # Relationships
     user = db.relationship('User', back_populates='pins')
-    board = db.relationship('Board', back_populates='pins')  # This is the reverse relationship
+    board = db.relationship('Board', back_populates='pins')  # Reverse relationship
     comments = db.relationship('Comment', backref='pin_reference', lazy=True, cascade="all, delete-orphan", overlaps='user')
     favorites = db.relationship('Favorite', backref='pin_favorite_reference', lazy=True, cascade="all, delete-orphan")
     
-    # New Relationship for BoardPin
+    # Optional relationship for BoardPin (if needed)
     # board_pins = db.relationship('BoardPin', back_populates='pin', cascade='all, delete-orphan')
 
     def to_dict(self):

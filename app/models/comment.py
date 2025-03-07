@@ -3,15 +3,17 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 class Comment(db.Model):
     __tablename__ = 'comments'
 
-    if environment == "production":
-        __table_args__ = {'schema': SCHEMA}
+    # Apply schema based on environment and include unique constraint if needed
+    __table_args__ = (
+        {'schema': SCHEMA} if environment == "production" else {},
+    )
 
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(500), nullable=False)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    pin_id = db.Column(db.Integer, db.ForeignKey('pins.id'), nullable=False)
-    overlaps = db.Column(db.Boolean, default=False)  # New column to track overlaps
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    pin_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('pins.id')), nullable=False)
+    overlaps = db.Column(db.Boolean, default=False)  # Tracks overlaps, if necessary
 
     # Relationships
     user = db.relationship('User', back_populates='comments')
