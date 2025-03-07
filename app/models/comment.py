@@ -3,7 +3,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 class Comment(db.Model):
     __tablename__ = 'comments'
 
-    # Apply schema based on environment and include unique constraint if needed
+    # Apply schema handling based on environment (production or development)
     __table_args__ = (
         {'schema': SCHEMA} if environment == "production" else {},
     )

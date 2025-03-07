@@ -5,10 +5,9 @@ from flask_login import UserMixin
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
-    # Ensure schema handling is done correctly
-    __table_args__ = (
-        {'schema': SCHEMA} if environment == "production" else {},
-    )
+    # Apply schema handling correctly based on environment
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}  # Apply schema in production environment
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)

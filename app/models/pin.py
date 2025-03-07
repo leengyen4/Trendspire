@@ -3,7 +3,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 class Pin(db.Model):
     __tablename__ = 'pins'
 
-    # Add schema handling based on the environment (production or development)
+    # Apply schema handling based on the environment (production or development)
     __table_args__ = (
         {'schema': SCHEMA} if environment == "production" else {},
     )
