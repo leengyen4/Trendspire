@@ -20,19 +20,22 @@ const PinForm = ({ onPinCreated }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${localStorage.getItem('token')}`, // Ensure token is in header
         },
         body: JSON.stringify(newPin),
       });
 
       if (response.ok) {
         const createdPin = await response.json();
-        onPinCreated(createdPin);  // Callback to parent to refresh the list
+        onPinCreated(createdPin); // Callback to parent to refresh the list
       } else {
-        alert('Failed to create pin');
+        const errorData = await response.json();
+        console.error('Failed to create pin:', errorData);
+        alert(`Failed to create pin: ${errorData.message || 'Unknown error'}`);
       }
     } catch (error) {
       console.error('Error creating pin:', error);
+      alert('Error creating pin. Please try again.');
     }
   };
 

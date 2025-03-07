@@ -14,15 +14,25 @@ def get_pins():
 @login_required
 def create_pin():
     data = request.get_json()
-    new_pin = Pin(
-        user_id=current_user.id,
-        title=data['title'],
-        description=data['description'],
-        image_url=data['image_url']
-    )
-    db.session.add(new_pin)
-    db.session.commit()
-    return jsonify(new_pin.to_dict()), 201
+    
+    # Check if data contains the required fields
+    if not all(key in data for key in ['title', 'description', 'image_url']):
+        return jsonify({'message': 'Missing required fields'}), 400
+
+    try:
+        new_pin = Pin(
+            user_id=current_user.id,
+            title=data['title'],
+            description=data['description'],
+            image_url=data['image_url']
+        )
+
+        db.session.add(new_pin)
+        db.session.commit()
+        return jsonify(new_pin.to_dict()), 201  # Return the created pin
+    except Exception as e:
+        db.session.rollback()  # Rollback in case of error
+        return jsonify({'message': 'Failed to create pin', 'error': str(e)}), 500
 
 @pin_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
@@ -34,7 +44,6 @@ def delete_pin(id):
         return jsonify({'message': 'Pin deleted successfully'}), 200
     return jsonify({'message': 'Pin not found or unauthorized'}), 404
 
-# New PUT route to update a pin
 @pin_routes.route('/<int:id>', methods=['PUT'])
 @login_required
 def update_pin(id):

@@ -22,7 +22,7 @@ class Pin(db.Model):
     favorites = db.relationship('Favorite', backref='pin_favorite_reference', lazy=True, cascade="all, delete-orphan")
     
     # New Relationship for BoardPin
-    board_pins = db.relationship('BoardPin', back_populates='pin', cascade='all, delete-orphan')
+    # board_pins = db.relationship('BoardPin', back_populates='pin', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {

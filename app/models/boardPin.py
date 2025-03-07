@@ -13,8 +13,8 @@ class BoardPin(db.Model):
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
 
     # Relationships
-    board = db.relationship('Board', back_populates='board_pins')
-    pin = db.relationship('Pin', back_populates='board_pins')
+    #board = db.relationship('Board', back_populates='board_pins')
+    #pin = db.relationship('Pin', back_populates='board_pins')
 
     def to_dict(self):
         return {

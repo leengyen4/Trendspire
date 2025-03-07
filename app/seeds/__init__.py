@@ -4,7 +4,7 @@ from .board_seeds import seed_boards, undo_boards
 from .pin_seeds import seed_pins, undo_pins
 from .comment_seeds import seed_comments, undo_comments
 from .favorite_seeds import seed_favorites, undo_favorites
-from .boardpin_seeds import seed_board_pins, undo_board_pins
+#from .boardpin_seeds import seed_board_pins, undo_board_pins
 
 from app.models.db import db, environment, SCHEMA
 
@@ -23,14 +23,14 @@ def seed():
         undo_pins()
         undo_comments()
         undo_favorites()
-        undo_board_pins()  # Added BoardPin undo
+        # undo_board_pins()  # Added BoardPin undo
 
     seed_users()
     seed_boards()
     seed_pins()
     seed_comments()
     seed_favorites()
-    seed_board_pins()  # Added BoardPin seeding
+    # seed_board_pins()  # Added BoardPin seeding
 
 
 # Creates the `flask seed undo` command
@@ -41,4 +41,4 @@ def undo():
     undo_pins()
     undo_comments()
     undo_favorites()
-    undo_board_pins()  # Added BoardPin undo
+    # undo_board_pins()  # Added BoardPin undo

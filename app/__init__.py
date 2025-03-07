@@ -11,7 +11,7 @@ from .api.pin_routes import pin_routes
 from .api.board_routes import board_routes
 from .api.comment_routes import comment_routes
 from .api.favorite_routes import favorite_routes
-from .api.boardpin_routes import boardpin_routes  # Import the new boardpin routes
+#from .api.boardpin_routes import boardpin_routes  # Import the new boardpin routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -38,7 +38,7 @@ app.register_blueprint(pin_routes, url_prefix='/api/pins')
 app.register_blueprint(board_routes, url_prefix='/api/boards')
 app.register_blueprint(comment_routes, url_prefix='/api/comments')
 app.register_blueprint(favorite_routes, url_prefix='/api/favorites')
-app.register_blueprint(boardpin_routes, url_prefix='/api/boardpins')  # Register boardpin routes
+#app.register_blueprint(boardpin_routes, url_prefix='/api/boardpins')  # Register boardpin routes
 
 # Initialize database and migrate
 db.init_app(app)
