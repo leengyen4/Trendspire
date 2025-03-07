@@ -18,12 +18,12 @@ seed_commands = AppGroup('seed')
 def seed():
     if environment == 'production':
         # Before seeding in production, truncate tables
-        undo_users()
-        undo_boards()
-        undo_pins()
+        undo_board_pins()
+        undo_favorites() 
         undo_comments()
-        undo_favorites()
-        undo_board_pins()  # Added BoardPin undo
+        undo_pins() 
+        undo_boards()
+        undo_users()
 
     seed_users()
     seed_boards()
@@ -36,9 +36,9 @@ def seed():
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
 def undo():
-    undo_users()
-    undo_boards()
-    undo_pins()
+    undo_board_pins()
+    undo_favorites() 
     undo_comments()
-    undo_favorites()
-    undo_board_pins()  # Added BoardPin undo
+    undo_pins() 
+    undo_boards()
+    undo_users()  
