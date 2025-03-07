@@ -16,7 +16,7 @@ const CommentItem = ({ comment, onCommentDeleted, onCommentUpdated }) => {
     if (response.ok) {
       onCommentDeleted(comment.id); // Remove the comment from the parent list
     } else {
-      alert('Failed to delete the comment');
+      alert('You cannot delete a comment that is not yours.');
     }
   };
 
@@ -37,7 +37,7 @@ const CommentItem = ({ comment, onCommentDeleted, onCommentUpdated }) => {
       onCommentUpdated(data); // Update the comment in the parent list
       setIsEditing(false); // Close the edit form
     } else {
-      alert('Failed to update the comment');
+      alert('You cannot update a comment that is not yours');
     }
   };
 

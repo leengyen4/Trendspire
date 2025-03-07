@@ -24,7 +24,7 @@ const CreateCommentForm = ({ pinId, onCommentCreated }) => {
         onCommentCreated(createdComment); // Update the parent with the new comment
         setContent(''); // Clear the form
       } else {
-        alert('Failed to create comment');
+        alert('You must be logged in to create a comment.');
       }
     } catch (error) {
       console.error('Error creating comment:', error);
