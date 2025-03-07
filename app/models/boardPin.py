@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 class BoardPin(db.Model):
-    __tablename__ = 'board_pins'
+    __tablename__ = 'boardPins'
 
     # Apply schema handling correctly based on environment
     if environment == "production":
@@ -14,8 +14,8 @@ class BoardPin(db.Model):
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
 
     # Relationships (fixed indentation)
-    board = db.relationship('Board', back_populates='board_pins')
-    pin = db.relationship('Pin', back_populates='board_pins')
+    board = db.relationship('Board', back_populates='boardPins')
+    pin = db.relationship('Pin', back_populates='boardPins')
 
     def to_dict(self):
         return {
