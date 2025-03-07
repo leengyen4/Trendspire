@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import PinForm from './PinForm';
 import PinList from './PinList';
 import { useParams } from 'react-router-dom';
-import CommentComponent from '../Comment/Comment'; // Import the CommentComponent
+import CommentComponent from '../Comment/CommentComponent';  // Import the CommentComponent
 import './PinItem.css';
 
 const PinPage = () => {
@@ -49,8 +49,8 @@ const PinPage = () => {
         onPinUpdated={handlePinUpdated} // Pass update handler
       />
 
-      {/* Check if pinId exists before rendering the comments */}
-      {pinId && <CommentComponent pinId={pinId} />} {/* Pass pinId to CommentComponent */}
+      {/* Render CommentComponent below the pins */}
+      {pinId && <CommentComponent pinId={pinId} />}  {/* Pass pinId to CommentComponent */}
     </div>
   );
 };

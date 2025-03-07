@@ -1,87 +1,86 @@
-/* Style the container of the comments */
-.comment-container {
-  margin: 20px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-}
+/* src/components/Comment/Comment.css */
 
-/* Style the heading of the comments section */
-.comment-container h3 {
-  font-size: 24px;
-  margin-bottom: 10px;
-  color: #333;
-}
+.comment-component {
+    margin-top: 20px;
+  }
+  
+  .create-comment-form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .create-comment-form textarea {
+    padding: 10px;
+    width: 100%;
+    min-height: 100px;
+    resize: none;
+    margin-bottom: 10px;
+  }
+  
+  .create-comment-form button {
+    align-self: flex-end;
+    padding: 8px 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .create-comment-form button:hover {
+    background-color: #45a049;
+  }
+  
+  .comment-list {
+    margin-top: 20px;
+  }
+  
+  .comment-item {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .comment-item button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+  
+  .comment-item button:hover {
+    background-color: #e53935;
+  }
+  
+  .comment-item p {
+    margin: 0;
+    font-size: 14px;
+  }
+  
+  .comment-item textarea {
+    padding: 10px;
+    width: 100%;
+    min-height: 50px;
+    resize: none;
+    margin-bottom: 10px;
+  }
+  
+  .comment-item button {
+    background-color: #008cba;
+    color: white;
+  }
+  
+  .comment-item button:hover {
+    background-color: #007bb5;
+  }
 
-/* Style the textarea for adding a new comment */
-.comment-container textarea {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 14px;
-  resize: vertical; /* Allow vertical resizing */
-}
-
-/* Style the button for adding a new comment */
-.comment-container button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.comment-container button:hover {
-  background-color: #0056b3;
-}
-
-/* Style the list of comments */
-.comment-list {
-  margin-top: 20px;
-}
-
-.comment-card {
-  background-color: #fff;
-  padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.comment-card p {
-  font-size: 16px;
-  color: #333;
-}
-
-.comment-card button {
-  background-color: #f44336;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 12px;
-}
-
-.comment-card button:hover {
-  background-color: #d32f2f;
-}
-
-.comment-card textarea {
-  width: 100%;
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-}
-
-/* Style buttons for editing comments */
-.comment-card button {
-  margin-right: 5px;
-}
+.error {
+    color: red;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
