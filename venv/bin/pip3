@@ -1,4 +1,4 @@
-#!/Users/leenguyen/appAcademy/Trendspire/venv/bin/python
+#!/Users/leenguyen/appAcademy/Trendspire/venv/bin/python3.13
 # -*- coding: utf-8 -*-
 import re
 import sys
