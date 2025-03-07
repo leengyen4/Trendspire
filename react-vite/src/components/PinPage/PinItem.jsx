@@ -1,5 +1,5 @@
-// src/components/PinPage/PinItem.jsx
 import React, { useState } from 'react';
+import CommentComponent from '../Comment/CommentComponent'; // Import CommentComponent
 
 const PinItem = ({ pin, onPinDeleted, onPinUpdated }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -20,7 +20,7 @@ const PinItem = ({ pin, onPinDeleted, onPinUpdated }) => {
       alert('Pin deleted successfully!');
       onPinDeleted(pin.id); // Remove pin from parent component's state
     } else {
-      alert('Failed to delete the pin.');
+      alert('You cannot delete a pin that is not yours.');
     }
   };
 
@@ -46,7 +46,7 @@ const PinItem = ({ pin, onPinDeleted, onPinUpdated }) => {
       onPinUpdated(data); // Update pin in parent component's state
       setIsEditing(false); // Close the editing form
     } else {
-      alert('Failed to update the pin.');
+      alert('You cannot change a pin that is not yours.');
     }
   };
 
@@ -76,10 +76,14 @@ const PinItem = ({ pin, onPinDeleted, onPinUpdated }) => {
           <h3>{pin.title}</h3>
           <img src={pin.image_url} alt={pin.title} className="pin-image" />
           <p>{pin.description}</p>
+          {/* Update and Delete buttons for pins */}
           <button onClick={handleDelete}>Delete</button>
           <button onClick={() => setIsEditing(true)}>Edit</button>
         </>
       )}
+      
+      {/* Render CommentComponent with pinId */}
+      <CommentComponent pinId={pin.id} />
     </div>
   );
 };

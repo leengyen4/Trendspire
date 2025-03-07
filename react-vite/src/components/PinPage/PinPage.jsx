@@ -1,13 +1,10 @@
-// src/components/PinPage/PinPage.jsx
 import React, { useState, useEffect } from 'react';
 import PinForm from './PinForm';
-import PinList from './PinList';
-import { useParams } from 'react-router-dom';
-import CommentComponent from '../Comment/CommentComponent'; // Import the CommentComponent
-import './PinItem.css';
+import PinList from './PinList';  // Import the PinList component
+import './PinItem.css';  // Make sure the styles for PinItem are included
 
 const PinPage = () => {
-  const [pins, setPins] = useState([]); // Store all pins
+  const [pins, setPins] = useState([]);  // Store all pins
 
   // Fetch all pins data when the component mounts
   useEffect(() => {
@@ -41,22 +38,14 @@ const PinPage = () => {
   return (
     <div>
       <h1>All Pins</h1>
-      <PinForm onPinCreated={handlePinCreated} />
-      
-      <PinList
-        pins={pins} // Pass the list of pins to PinList
-        onPinDeleted={handlePinDeleted} // Pass delete handler
-        onPinUpdated={handlePinUpdated} // Pass update handler
-      />
+      <PinForm onPinCreated={handlePinCreated} /> {/* Pin creation form */}
 
-      {/* Render CommentComponent below each pin */}
-      {pins.map((pin) => (
-        <div key={pin.id}>
-          <h3>{pin.title}</h3>
-          {/* Pass pinId to the CommentComponent for each pin */}
-          <CommentComponent pinId={pin.id} />
-        </div>
-      ))}
+      {/* Use PinList to display all pins */}
+      <PinList
+        pins={pins}  // Pass the list of pins to PinList
+        onPinDeleted={handlePinDeleted}  // Pass delete handler to PinList
+        onPinUpdated={handlePinUpdated}  // Pass update handler to PinList
+      />
     </div>
   );
 };
