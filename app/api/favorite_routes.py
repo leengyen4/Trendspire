@@ -5,13 +5,13 @@ from flask_login import login_required, current_user
 
 favorite_routes = Blueprint('favorite_routes', __name__)
 
-@favorite_routes.route('/', methods=['GET'])
+@favorite_routes.route('', methods=['GET'])
 @login_required
 def get_favorites():
     favorites = Favorite.query.filter_by(user_id=current_user.id).all()
     return jsonify([favorite.to_dict() for favorite in favorites])
 
-@favorite_routes.route('/', methods=['POST'])
+@favorite_routes.route('', methods=['POST'])
 @login_required
 def create_favorite():
     data = request.get_json()
