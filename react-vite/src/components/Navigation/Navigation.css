@@ -1,3 +1,22 @@
+/* Style for the ul element in Navigation */
+ul {
+  display: flex;
+  flex-direction: column; /* Stack the items vertically */
+  align-items: flex-end; /* Aligns the items to the right side */
+  gap: 10px; /* Adds space between the buttons */
+  list-style-type: none; /* Removes default bullet points */
+  padding: 0; /* Removes default padding */
+  margin: 0; /* Removes default margin */
+}
+
+/* Style for each list item (li) in Navigation */
+li {
+  display: inline-block; /* Ensures each item is inline */
+}
+
+/* Profile dropdown menu styles */
 .profile-dropdown {
   position: absolute;
+  top: 40px; /* Adjust as needed to position below the profile button */
+  right: 0; /* Aligns the dropdown to the right side */
 }
