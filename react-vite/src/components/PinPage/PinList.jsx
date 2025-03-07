@@ -1,7 +1,7 @@
 import React from 'react';
-import PinItem from './PinItem';
+import PinItem from './PinItem'; // Import the PinItem component
 
-const PinList = ({ pins = [], onPinDeleted, onPinUpdated, favorites, onFavoriteToggle }) => {
+const PinList = ({ pins, onPinDeleted, onPinUpdated, onFavoriteToggle, favorites, onAddToBoard, boards }) => {
   return (
     <div className="pin-list">
       {pins.length > 0 ? (
@@ -11,8 +11,10 @@ const PinList = ({ pins = [], onPinDeleted, onPinUpdated, favorites, onFavoriteT
             pin={pin}
             onPinDeleted={onPinDeleted}
             onPinUpdated={onPinUpdated}
-            favorites={favorites} // Pass favorites
-            onFavoriteToggle={onFavoriteToggle} // Pass favorite toggle function
+            onFavoriteToggle={onFavoriteToggle}
+            favorites={favorites}
+            onAddToBoard={onAddToBoard}
+            boards={boards} // Pass the boards to each PinItem
           />
         ))
       ) : (

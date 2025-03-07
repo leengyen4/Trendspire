@@ -63,3 +63,10 @@ button:hover {
 .nav-button:hover {
   background-color: #0056b3;  /* Darker blue on hover */
 }
+
+.sub-message {
+  font-size: 1rem;  /* Smaller font size */
+  color: #666;        /* Light color to make it subtle */
+  text-align: right; /* Center-align the text */
+  margin-top: 10px;   /* Some space between Trendspire and the message */
+}

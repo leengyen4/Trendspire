@@ -106,3 +106,71 @@
   object-fit: cover;
   margin-bottom: 16px;
 }
+
+/* Modal Styling for Selecting Board */
+.board-modal {
+  position: fixed; /* Position fixed so it stays on top */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the modal */
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Ensure it's on top of other elements */
+  width: 300px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.board-modal h4 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.board-modal ul {
+  list-style-type: none;
+  padding: 0;
+  max-height: 200px; /* Limit list height */
+  overflow-y: auto; /* Allow scrolling if too many items */
+}
+
+.board-modal li {
+  margin: 10px 0;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.board-modal li:hover {
+  background-color: #f1f1f1;
+}
+
+.board-modal button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.board-modal button:hover {
+  background-color: #0056b3;
+}
+
+/* Optional: Add a backdrop for the modal */
+.board-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 999; /* Behind the modal */
+}

@@ -1,11 +1,23 @@
 import React, { useState } from 'react';
 import CommentComponent from '../Comment/CommentComponent'; // Import CommentComponent
 
-const PinItem = ({ pin, onPinDeleted, onPinUpdated, onFavoriteToggle, favorites }) => {
+const PinItem = ({ pin, onPinDeleted, onPinUpdated, onFavoriteToggle, favorites, onAddToBoard, boards }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [updatedTitle, setUpdatedTitle] = useState(pin.title);
   const [updatedDescription, setUpdatedDescription] = useState(pin.description);
   const [updatedImageUrl, setUpdatedImageUrl] = useState(pin.image_url);
+  const [isBoardModalOpen, setIsBoardModalOpen] = useState(false); // For toggling the board modal
+
+  // Toggle Add to Board Modal
+  const toggleBoardModal = () => {
+    setIsBoardModalOpen(!isBoardModalOpen);
+  };
+
+  // Handle adding pin to a board
+  const handleAddToBoard = (boardId) => {
+    onAddToBoard(pin.id, boardId); // Trigger the add action in the parent component
+    setIsBoardModalOpen(false); // Close the modal after adding
+  };
 
   // Delete Pin
   const handleDelete = async () => {
@@ -93,10 +105,37 @@ const PinItem = ({ pin, onPinDeleted, onPinUpdated, onFavoriteToggle, favorites 
 
           {/* Delete button */}
           <button onClick={handleDelete} className="delete-btn">Delete</button>
+
+          {/* Add to Board button */}
+          <button onClick={toggleBoardModal} className="favorite-btn">
+            Add to Board
+          </button>
+
+          {/* Modal to select board */}
+          {isBoardModalOpen && (
+            <div className="board-modal-overlay" onClick={toggleBoardModal}>
+              <div className="board-modal" onClick={(e) => e.stopPropagation()}>
+                <h4>Select a Board</h4>
+                <ul>
+                  {boards && boards.length > 0 ? (
+                    boards.map((board) => (
+                      <li key={board.id}>
+                        <button onClick={() => handleAddToBoard(board.id)}>
+                          {board.title}
+                        </button>
+                      </li>
+                    ))
+                  ) : (
+                    <li>No boards available</li>
+                  )}
+                </ul>
+                <button onClick={() => setIsBoardModalOpen(false)}>Cancel</button>
+              </div>
+            </div>
+          )}
         </>
       )}
 
-      {/* Render CommentComponent with pinId */}
       <CommentComponent pinId={pin.id} />
     </div>
   );

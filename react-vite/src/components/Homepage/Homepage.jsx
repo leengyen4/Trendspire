@@ -7,6 +7,8 @@ const Homepage = () => {
   return (
     <div>
       <h1>Trendspire</h1>
+      {/* Smaller text message */}
+      <p className="sub-message">Please log in or sign up before using Trendspire</p>
       
       {/* Buttons to navigate to Favorite and Boards */}
       <div className="navigation-buttons">

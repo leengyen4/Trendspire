@@ -6,10 +6,10 @@ import './PinItem.css';  // Make sure the styles for PinItem are included
 const PinPage = () => {
   const [pins, setPins] = useState([]);  // Store all pins
   const [favorites, setFavorites] = useState([]); // Store user's favorite pins
+  const [boards, setBoards] = useState([]); // Store user's boards
 
-  // Fetch all pins and favorite pins data when the component mounts
+  // Fetch all pins, favorite pins, and boards data when the component mounts
   useEffect(() => {
-    // Fetch all pins data
     const fetchPins = async () => {
       try {
         const response = await fetch('/api/pins');
@@ -24,7 +24,6 @@ const PinPage = () => {
       }
     };
 
-    // Fetch user's favorite pins
     const fetchFavorites = async () => {
       try {
         const response = await fetch('/api/favorites', {
@@ -45,16 +44,35 @@ const PinPage = () => {
       }
     };
 
+    const fetchBoards = async () => {
+      try {
+        const response = await fetch('/api/boards', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setBoards(data); // Set user's boards
+        } else {
+          console.error('Error fetching boards');
+        }
+      } catch (err) {
+        console.error('Error fetching boards:', err);
+      }
+    };
+
     fetchPins();
     fetchFavorites();
-  }, []);
+    fetchBoards();
+  }, []); // Empty dependency array, meaning this runs once when the component mounts
 
   const handleFavoriteToggle = async (pinId) => {
-    // Check if the pin is already favorited by the user
     const existingFavorite = favorites.find(fav => fav.pin_id === pinId);
 
     if (existingFavorite) {
-      // Unfavorite the pin
       try {
         const response = await fetch('/api/favorites', {
           method: 'DELETE',
@@ -66,7 +84,7 @@ const PinPage = () => {
         });
 
         if (response.ok) {
-          setFavorites(favorites.filter(fav => fav.pin_id !== pinId)); // Remove from UI
+          setFavorites(favorites.filter(fav => fav.pin_id !== pinId));
         } else {
           console.error('Failed to unfavorite the pin');
         }
@@ -74,7 +92,6 @@ const PinPage = () => {
         console.error('Error unfavoriting pin:', error);
       }
     } else {
-      // Favorite the pin
       try {
         const response = await fetch('/api/favorites', {
           method: 'POST',
@@ -97,21 +114,43 @@ const PinPage = () => {
     }
   };
 
+  const handleAddToBoard = (pinId, boardId) => {
+    fetch(`/api/boardpins/${boardId}/pins/${pinId}`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert('Pin added to board successfully!');
+        } else {
+          console.error('Failed to add pin to board');
+        }
+      })
+      .catch((error) => {
+        console.error('Error adding pin to board:', error);
+      });
+  };
+
   return (
     <div>
       <h1>All Pins</h1>
-      
+
       {/* Use PinList to display all pins */}
       <PinList
-        pins={pins}  // Pass the list of pins to PinList
+        pins={pins}
         onPinDeleted={(id) => setPins(pins.filter(pin => pin.id !== id))}
         onPinUpdated={(updatedPin) => setPins(pins.map(pin => pin.id === updatedPin.id ? updatedPin : pin))}
-        onFavoriteToggle={handleFavoriteToggle}  // Pass the favorite/unfavorite handler
-        favorites={favorites} // Pass the list of favorites
+        onFavoriteToggle={handleFavoriteToggle}
+        favorites={favorites}
+        onAddToBoard={handleAddToBoard}
+        boards={boards} // Pass the boards to PinList component
       />
-      
+
       {/* Move the PinForm (create pin) to the bottom */}
-      <PinForm onPinCreated={(newPin) => setPins([newPin, ...pins])} /> {/* Pin creation form */}
+      <PinForm onPinCreated={(newPin) => setPins([newPin, ...pins])} />
     </div>
   );
 };
