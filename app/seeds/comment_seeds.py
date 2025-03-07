@@ -1,4 +1,5 @@
-from app.models import db, Comment, Pin, User
+from app.models import db, Comment, Pin, User, environment  # Added environment import
+from sqlalchemy.sql import text  # Ensure text is imported
 from datetime import datetime
 
 # Adds demo comments to the pins
