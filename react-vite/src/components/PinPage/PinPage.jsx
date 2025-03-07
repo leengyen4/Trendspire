@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PinForm from './PinForm';
+import PinForm from './PinForm';  // Import PinForm to handle pin creation
 import PinList from './PinList';  // Import the PinList component
 import './PinItem.css';  // Make sure the styles for PinItem are included
 
@@ -100,8 +100,7 @@ const PinPage = () => {
   return (
     <div>
       <h1>All Pins</h1>
-      <PinForm onPinCreated={(newPin) => setPins([newPin, ...pins])} /> {/* Pin creation form */}
-
+      
       {/* Use PinList to display all pins */}
       <PinList
         pins={pins}  // Pass the list of pins to PinList
@@ -110,6 +109,9 @@ const PinPage = () => {
         onFavoriteToggle={handleFavoriteToggle}  // Pass the favorite/unfavorite handler
         favorites={favorites} // Pass the list of favorites
       />
+      
+      {/* Move the PinForm (create pin) to the bottom */}
+      <PinForm onPinCreated={(newPin) => setPins([newPin, ...pins])} /> {/* Pin creation form */}
     </div>
   );
 };
