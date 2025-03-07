@@ -29,10 +29,11 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
-
-     if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+
     op.create_table('boards',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
@@ -42,10 +43,11 @@ def upgrade():
     sa.Column('updated_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
-
-     if environment == "production":
-        op.execute(f"ALTER TABLE boards SET SCHEMA {SCHEMA};")
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE boards SET SCHEMA {SCHEMA};")
+
     op.create_table('pins',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
@@ -58,10 +60,11 @@ def upgrade():
     sa.ForeignKeyConstraint(['board_id'], ['boards.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
-
-     if environment == "production":
-        op.execute(f"ALTER TABLE pins SET SCHEMA {SCHEMA};")
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE pins SET SCHEMA {SCHEMA};")
+
     op.create_table('boardPins',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('board_id', sa.Integer(), nullable=False),
@@ -70,10 +73,11 @@ def upgrade():
     sa.ForeignKeyConstraint(['board_id'], ['boards.id'], ),
     sa.ForeignKeyConstraint(['pin_id'], ['pins.id'], ),
     sa.PrimaryKeyConstraint('id')
-
-     if environment == "production":
-        op.execute(f"ALTER TABLE boardPins SET SCHEMA {SCHEMA};")
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE boardPins SET SCHEMA {SCHEMA};")
+
     op.create_table('comments',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('content', sa.String(length=500), nullable=False),
@@ -84,10 +88,11 @@ def upgrade():
     sa.ForeignKeyConstraint(['pin_id'], ['pins.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
-
-     if environment == "production":
-        op.execute(f"ALTER TABLE comments SET SCHEMA {SCHEMA};")
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE comments SET SCHEMA {SCHEMA};")
+
     op.create_table('favorites',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
@@ -96,10 +101,10 @@ def upgrade():
     sa.ForeignKeyConstraint(['pin_id'], ['pins.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
-
-     if environment == "production":
-        op.execute(f"ALTER TABLE favorites SET SCHEMA {SCHEMA};")
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE favorites SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 
